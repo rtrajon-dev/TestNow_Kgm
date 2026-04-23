@@ -12,7 +12,7 @@ class TypeOfInstructorPage extends StatelessWidget {
   const TypeOfInstructorPage({super.key});
 
   void _next(BuildContext context) {
-    context.push(AppRoutes.choosePlan);
+    context.push(AppRoutes.professionalDetails);
   }
 
   @override

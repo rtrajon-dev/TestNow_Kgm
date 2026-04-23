@@ -7,11 +7,17 @@ import 'package:testnow_mobile_app/features/auth/presentation/view/address_page.
 import 'package:testnow_mobile_app/features/auth/presentation/view/choose_plan_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/login_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/previous_address_page.dart';
+import 'package:testnow_mobile_app/features/auth/presentation/view/professional_details_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/role_selection_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/splash_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/status_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/test_details_page.dart';
 import 'package:testnow_mobile_app/features/auth/presentation/view/type_of_instructor_page.dart';
+import 'package:testnow_mobile_app/features/student/presentation/view/chat_page.dart';
+import 'package:testnow_mobile_app/features/student/presentation/view/instructors_page.dart';
+import 'package:testnow_mobile_app/features/student/presentation/view/student_profile_page.dart';
+import 'package:testnow_mobile_app/features/student/presentation/view/student_shell_page.dart';
+import 'package:testnow_mobile_app/features/student/presentation/view/tests_page.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -24,9 +30,15 @@ class AppRoutes {
   static const String address = '/address';
   static const String previousAddress = '/previous-address';
   static const String typeOfInstructor = '/type-of-instructor';
+  static const String professionalDetails = '/professional-details';
   static const String accountReview = '/account-review';
   static const String status = '/status';
   static const String choosePlan = '/choose-plan';
+
+  static const String studentTests = '/student/tests';
+  static const String studentInstructors = '/student/instructors';
+  static const String studentChat = '/student/chat';
+  static const String studentProfile = '/student/profile';
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -64,6 +76,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const TypeOfInstructorPage(),
       ),
       GoRoute(
+        path: AppRoutes.professionalDetails,
+        builder: (context, state) => const ProfessionalDetailsPage(),
+      ),
+      GoRoute(
         path: AppRoutes.address,
         builder: (context, state) => AddressPage(
           role: _roleFromQuery(state.uri.queryParameters['role']),
@@ -88,6 +104,36 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.choosePlan,
         builder: (context, state) => const ChoosePlanPage(),
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            StudentShellPage(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: AppRoutes.studentTests,
+              builder: (context, state) => const TestsPage(),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: AppRoutes.studentInstructors,
+              builder: (context, state) => const InstructorsPage(),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: AppRoutes.studentChat,
+              builder: (context, state) => const ChatPage(),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: AppRoutes.studentProfile,
+              builder: (context, state) => const StudentProfilePage(),
+            ),
+          ]),
+        ],
       ),
     ],
   );

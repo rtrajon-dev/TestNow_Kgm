@@ -75,7 +75,7 @@ class StatusPage extends StatelessWidget {
               CustomPrimaryButton(
                 text: 'Ok',
                 onPressed: () {
-                  context.go('${AppRoutes.login}?role=${role.name}');
+                  context.go(AppRoutes.studentTests);
                 },
               ),
               40.verticalSpace,
